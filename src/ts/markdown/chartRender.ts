@@ -9,7 +9,8 @@ declare const echarts: {
 export const chartRender = (element: (HTMLElement | Document) = document, cdn = Constants.CDN, theme: string) => {
     const echartsElements = chartRenderAdapter.getElements(element);
     if (echartsElements.length > 0) {
-        addScript(`${cdn}/dist/js/echarts/echarts.min.js`, "vditorEchartsScript").then(() => {
+		var echartsUrl = cdn.startsWith('http') ? 'https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js' : cdn + '/dist/js/echarts/echarts.min.js';
+        addScript(echartsUrl, "vditorEchartsScript").then(() => {
             echartsElements.forEach((e: HTMLDivElement) => {
                 if (e.parentElement.classList.contains("vditor-wysiwyg__pre") ||
                     e.parentElement.classList.contains("vditor-ir__marker--pre")) {
@@ -24,8 +25,16 @@ export const chartRender = (element: (HTMLElement | Document) = document, cdn = 
                     if (e.getAttribute("data-processed") === "true") {
                         return;
                     }
-                    const option = JSON.parse(text);
-                    echarts.init(e, theme === "dark" ? "dark" : undefined).setOption(option);
+                    
+                    // const option = JSON.parse(text);
+                    // echarts.init(e, theme === "dark" ? "dark" : undefined).setOption(option);
+                    const txtStr = text.replace(/^\s+|\s+$/g,''); 
+                    
+                    var optionFun = new Function('myChart',  'setTimeout', 'setInterval', 'var option; \n' + (txtStr.startsWith('{') ? 'option = ' : '') + txtStr + '\nreturn option;');
+                    var myChart = echarts.init(e, theme === "dark" ? "dark" : undefined);
+                    const option = optionFun(myChart, setTimeout, setInterval);
+                    myChart.setOption(option);
+
                     e.setAttribute("data-processed", "true");
                 } catch (error) {
                     e.className = "vditor-reset--error";
