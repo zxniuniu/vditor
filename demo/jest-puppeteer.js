@@ -32,8 +32,8 @@ window.vditorTest = new Vditor('vditorTest', {
     emoji: {
       '+1': '👍',
       '-1': '👎',
-      'trollface': 'https://unpkg.com/vditor@1.3.1/dist/images/emoji/trollface.png',
-      'huaji': 'https://unpkg.com/vditor@1.3.1/dist/images/emoji/huaji.gif',
+      'trollface': 'https://fastly.jsdelivr.net/gh/zxniuniu/vditor@latest/dist/images/emoji/trollface.png',
+      'huaji': 'https://fastly.jsdelivr.net/gh/zxniuniu/vditor@latest/dist/images/emoji/huaji.gif',
     },
     at: (key) => {
       console.log(`atUser: ${key}`)

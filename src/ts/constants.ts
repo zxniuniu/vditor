@@ -30,7 +30,7 @@ export abstract class Constants {
     "solidity", "yul"
   ];
   // public static readonly CDN = `https://unpkg.com/vditor@${VDITOR_VERSION}`;
-  public static readonly CDN = `https://fastly.jsdelivr.net/gh/zxniuniu/vditor@${VDITOR_VERSION}`;
+  public static readonly CDN = `https://fastly.jsdelivr.net/gh/zxniuniu/vditor@latest`;
   public static readonly MARKDOWN_OPTIONS = {
     autoSpace: false,
     codeBlockPreview: true,
